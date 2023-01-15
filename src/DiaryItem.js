@@ -1,23 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-
 // DiaryItem.js
-const DiaryItem = ({
-  onRemove,
-  onEdit,
-  id,
-  author,
-  content,
-  emotion,
-  created_date,
-}) => {
+import React, { useContext, useRef, useState } from "react";
+import { DiaryDispatchContext } from "./App";
+
+const DiaryItem = ({ id, author, content, emotion, created_date }) => {
+  const { onRemove, onEdit } = useContext(DiaryDispatchContext);
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => setIsEdit(!isEdit);
   const [localContent, setLocalContent] = useState(content);
   const localContentInput = useRef();
 
-  useEffect(() => {
-    console.log(`${id}번째 글이 리렌더링되고 있습니다.`);
-  });
   const handleRemove = () => {
     if (window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)) {
       onRemove(id);
